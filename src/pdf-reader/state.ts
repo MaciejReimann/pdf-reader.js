@@ -42,17 +42,19 @@ export async function readSentences(
       sentenceText: audioItem.originalSentenceText,
     });
 
+    // NOTE: currently only highlightCurrentlyReadSentence works...
+
     // Start word tracking with main thread timer
-    const wordTimer = highlightCurrentlyReadWord(
-      audioItem,
-      currentSentenceWords
-    );
+    // const wordTimer = highlightCurrentlyReadWord(
+    //   audioItem,
+    //   currentSentenceWords
+    // );
 
     await playAudio({
       audioItem,
       onEnd: () => {
         clearSentenceHighlight();
-        wordTimer.stop();
+        // wordTimer.stop();
       },
     });
   }
