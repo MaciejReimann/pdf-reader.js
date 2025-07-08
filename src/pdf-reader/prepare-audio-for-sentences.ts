@@ -13,7 +13,6 @@ export async function prepareAudioForSentences({
     throw new Error("No sentences to prepare audio for!");
   }
 
-  // In development mode, try to load fixtures first
   if (IS_DEV && fixtureKey) {
     try {
       const fixtures = await loadAudioFixtures(fixtureKey);

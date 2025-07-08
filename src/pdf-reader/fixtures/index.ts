@@ -54,7 +54,6 @@ export async function loadAudioFixtures(
   try {
     let fixtures;
 
-    // Dynamically import the appropriate fixture based on the key
     if (fixtureKey === "audioForFirstSection") {
       const module = await import("./audioForFirstSection");
       fixtures = module.audioForFirstSection;
@@ -75,7 +74,6 @@ export async function loadAudioFixtures(
       `🔧 Development mode: Using audio fixtures for ${fixtureKey} instead of OpenAI APIs`
     );
 
-    // Convert fixture data to proper AudioWithWordTimings format
     const typedFixtures: AudioWithWordTimings[] = fixtures.map((item: any) => ({
       audioBuffer: item.audioBufferBase64
         ? base64ToArrayBuffer(item.audioBufferBase64)
@@ -107,7 +105,6 @@ export async function loadCompletionFixtures(
   try {
     let fixture;
 
-    // Dynamically import the appropriate fixture based on the key
     if (fixtureKey === "analyzePageStructureFixture") {
       const module = await import("./analyzePageStructure");
       fixture = module.analyzePageStructureFixture;
@@ -135,7 +132,6 @@ export async function saveCompletionFixtures(
   filename: string
 ) {
   try {
-    // Create the fixture file content
     const fixtureContent = `export const ${filename} = ${JSON.stringify(completionData, null, 2)};`;
 
     console.log(`🔧 Capture mode: Saving ${filename} fixture...`);

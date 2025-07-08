@@ -1,5 +1,4 @@
-/* Copyright 2024 Custom PDF Find Wrapper
- *
+/*
  * A programmatic wrapper around PDF.js find functionality
  * that allows custom highlighting without modifying original scripts.
  */

@@ -24,13 +24,15 @@ export async function getCurrentPageAsImage({
   return new Promise((resolve, reject) => {
     canvas.toBlob(
       blob => {
-        if (blob) {
-          const fileName = `${getTitle()}_page_${currentPageNum}.png`;
-          const file = new File([blob], fileName, { type: "image/png" });
-          resolve(file);
-        } else {
+        if (!blob) {
           reject(new Error("Failed to convert canvas to blob"));
+          return;
         }
+
+        const fileName = `${getTitle()}_page_${currentPageNum}.png`;
+        const file = new File([blob], fileName, { type: "image/png" });
+
+        resolve(file);
       },
       "image/png",
       0.95

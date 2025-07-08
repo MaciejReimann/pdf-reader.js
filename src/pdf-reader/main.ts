@@ -30,11 +30,9 @@ async function runReadingPreparation(sessionId: number) {
     const pageStructure = await analyzePageStructure(imageFile);
     console.log("Reading preparation complete:", pageStructure);
 
-    // const wordMap = await buildWordMap(pageStructure, pdfViewer);
+    // wordMap is not terribly useful ATM...
+    const wordMap = await buildWordMap(pageStructure, pdfViewer);
     // console.log("Word map built:", wordMap);
-
-    // Make wordMap available globally for testing
-    // (window as any).wordMap = wordMap;
     console.log(
       "🧪 WordMap integrated with audio! Manual API: wordMap.traverse() in console"
     );
@@ -56,7 +54,7 @@ async function runReadingPreparation(sessionId: number) {
         shouldEnable: () => areSameSessions(sessionId),
         onClick: async () => {
           await prepareAudioForTheRestOfTheSections();
-          // await readSentences(pdfViewer, wordMap);
+          await readSentences(pdfViewer, wordMap);
         },
       });
 

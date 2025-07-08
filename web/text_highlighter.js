@@ -1,3 +1,5 @@
+// TODO: this should have been a copy of the original text_highlighter.js!!!
+
 /* Copyright 2021 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

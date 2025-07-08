@@ -25,7 +25,6 @@ export type Sentence =
 export async function analyzePageStructure(
   pageFile: File
 ): Promise<PageStructureSchema> {
-  // In development mode, try to load fixtures first
   if (IS_DEV) {
     try {
       const fixtures = await loadCompletionFixtures(
@@ -42,7 +41,6 @@ export async function analyzePageStructure(
     }
   }
 
-  // Generate completion using OpenAI API
   const base64Data = await fileToBase64(pageFile);
 
   const systemPrompt = `

@@ -37,6 +37,10 @@ export async function readSentences(
         );
       }
     }
+    highlightCurrentlyReadSentence({
+      pdfViewer,
+      sentenceText: audioItem.originalSentenceText,
+    });
 
     // Start word tracking with main thread timer
     const wordTimer = highlightCurrentlyReadWord(
