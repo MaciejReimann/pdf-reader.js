@@ -42,6 +42,7 @@ See https://github.com/adobe-type-tools/cmap-resources
 <!--<link rel="localization" href="toolkit/pdfviewer/viewer.ftl"/>-->
 <!--#else-->
     <link rel="stylesheet" href="viewer.css">
+    <link rel="stylesheet" href="sentence-highlight.css">
 <!--#endif-->
 
 <!--#if MOZCENTRAL-->
@@ -89,11 +90,16 @@ See https://github.com/adobe-type-tools/cmap-resources
           "web-print_service": "./pdf_print_service.js",
           "web-secondary_toolbar": "./secondary_toolbar.js",
           "web-signature_manager": "./signature_manager.js",
-          "web-toolbar": "./toolbar.js"
+          "web-toolbar": "./toolbar.js",
+
+          "pdf-reader": "../build/pdf-reader/main.js"
         }
       }
     </script>
     <script src="viewer.js" type="module"></script>
+    <script type="module">
+      import "../build/pdf-reader/main.js";
+    </script>
 <!--#endif-->
   </head>
 
@@ -119,6 +125,8 @@ See https://github.com/adobe-type-tools/cmap-resources
               </button>
             </div>
           </div>
+
+
 
           <div id="toolbarSidebarRight">
             <div id="outlineOptionsContainer" class="toolbarHorizontalGroup">
@@ -215,6 +223,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <span id="numPages" class="toolbarLabel"></span>
                 </div>
               </div>
+
               <div id="toolbarViewerMiddle" class="toolbarHorizontalGroup">
                 <div class="toolbarHorizontalGroup">
                   <button id="zoomOutButton" class="toolbarButton" type="button" tabindex="0" data-l10n-id="pdfjs-zoom-out-button">
@@ -243,6 +252,15 @@ See https://github.com/adobe-type-tools/cmap-resources
                   </select>
                 </span>
               </div>
+
+              <div id="readButtonContainer" class="toolbarHorizontalGroup">
+                <button id="readButton" type="button" tabindex="0" title="Read" disabled>
+                <span>Read</span>
+              </button>
+
+            <div class="verticalToolbarSeparator"></div>
+          </div>
+
               <div id="toolbarViewerRight" class="toolbarHorizontalGroup">
                 <div id="editorModeButtons" class="toolbarHorizontalGroup" role="radiogroup">
                   <div id="editorSignature" class="toolbarButtonWithContainer" hidden="true">
@@ -806,5 +824,8 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     </div> <!-- outerContainer -->
     <div id="printContainer"></div>
+
+    <!-- Custom Find System Scripts -->
+    <script src="custom_find_controller.js"></script>
   </body>
 </html>
