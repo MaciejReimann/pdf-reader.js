@@ -1,6 +1,13 @@
 {
   "name": "pdf.js",
   "type": "module",
+  "scripts": {
+    "build": "gulp generic",
+    "build:gh-pages": "gulp generic && npm run prepare-gh-pages",
+    "prepare-gh-pages": "node scripts/prepare-gh-pages.mjs",
+    "dev": "gulp server",
+    "clean": "gulp clean"
+  },
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",

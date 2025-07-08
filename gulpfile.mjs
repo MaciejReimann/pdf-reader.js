@@ -1136,6 +1136,9 @@ function buildGeneric(defines, dir) {
         ])
       )
       .pipe(gulp.dest(dir + "web")),
+    gulp
+      .src("web/sentence-highlight.css", { encoding: false })
+      .pipe(gulp.dest(dir + "web")),
 
     gulp
       .src("web/compressed.tracemonkey-pldi-09.pdf", { encoding: false })
@@ -1159,6 +1162,34 @@ gulp.task(
     },
     async function prefsGeneric() {
       await parseDefaultPreferences("generic/");
+    },
+    function buildPdfReader(done) {
+      console.log();
+      console.log("### Building PDF Reader with Vite");
+
+      exec(
+        `"node_modules/.bin/vite" build src/pdf-reader`,
+        (error, stdout, stderr) => {
+          if (error) {
+            console.error("Vite build failed:", error);
+            console.error("stdout:", stdout);
+            console.error("stderr:", stderr);
+            done(error);
+            return;
+          }
+
+          if (stdout) {
+            console.log("Vite build output:", stdout);
+          }
+
+          if (stderr) {
+            console.warn("Vite build warnings:", stderr);
+          }
+
+          console.log("PDF Reader Vite build completed successfully");
+          done();
+        }
+      );
     },
     function createGeneric() {
       console.log();
