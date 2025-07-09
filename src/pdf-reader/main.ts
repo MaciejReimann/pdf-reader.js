@@ -32,7 +32,7 @@ async function runReadingPreparation(sessionId: number) {
 
     // wordMap is not terribly useful ATM...
     const wordMap = await buildWordMap(pageStructure, pdfViewer);
-    // console.log("Word map built:", wordMap);
+    console.log("Word map built:", wordMap);
     console.log(
       "🧪 WordMap integrated with audio! Manual API: wordMap.traverse() in console"
     );
@@ -51,7 +51,7 @@ async function runReadingPreparation(sessionId: number) {
 
       setLatestAudioData(audioForFirstSection);
       enableReadButton({
-        shouldEnable: () => areSameSessions(sessionId),
+        shouldEnable: () => areSameSessions(sessionId), // because we want to disable after a new PDF is loaded
         onClick: async () => {
           await prepareAudioForTheRestOfTheSections();
           await readSentences(pdfViewer, wordMap);
@@ -66,7 +66,7 @@ async function runReadingPreparation(sessionId: number) {
         });
 
         // Start reading the first section immediately
-        // await readSentences(pdfViewer, wordMap);
+        await readSentences(pdfViewer, wordMap);
 
         // Wait for the rest of the sections to be prepared
         const audioForTheRestOfTheSections =
@@ -91,24 +91,24 @@ async function runReadingPreparation(sessionId: number) {
 
 function waitForPDFToLoad() {
   const eventBus = window.PDFViewerApplication?.eventBus;
-
-  if (eventBus) {
-    eventBus._on("documentloaded", () => {
-      console.log("📄 New PDF loaded - running reading preparation...");
-      resetReadButton();
-      clearSentenceHighlight();
-
-      const sessionId = resetLatestAudioData();
-      // Small delay to ensure PDF.js is fully ready
-      setTimeout(() => runReadingPreparation(sessionId), 100);
-      // Set up custom finder after PDF loads
-      setTimeout(setupCustomFinder, 500);
-    });
-  } else {
+  if (!eventBus) {
     console.warn("EventBus not available, trying fallback...");
     // Fallback: try again after a delay
     setTimeout(waitForPDFToLoad, 1000);
+    return;
   }
+
+  eventBus._on("documentloaded", () => {
+    console.log("📄 New PDF loaded - running reading preparation...");
+    resetReadButton();
+    clearSentenceHighlight();
+
+    const sessionId = resetLatestAudioData();
+    // Small delay to ensure PDF.js is fully ready
+    setTimeout(() => runReadingPreparation(sessionId), 100);
+    // Set up custom finder after PDF loads
+    setTimeout(setupCustomFinder, 500);
+  });
 }
 
 waitForPDFToLoad();
