@@ -18,11 +18,11 @@ import {
 
 async function runReadingPreparation(sessionId: number) {
   try {
-    const { getCurrentPage, pdfDocument, getTitle, pdfViewer } =
+    const { getCurrentPageNumber, pdfDocument, getTitle, pdfViewer } =
       await referenceCurrentDocument();
 
     const imageFile = await getCurrentPageAsImage({
-      getCurrentPage,
+      getCurrentPageNumber,
       pdfDocument,
       getTitle,
     });

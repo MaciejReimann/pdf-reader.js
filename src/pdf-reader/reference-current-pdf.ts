@@ -9,7 +9,7 @@ export async function referenceCurrentDocument(): Promise<PDFReference> {
   return {
     pdfDocument: app.pdfDocument,
     pdfViewer: app.pdfViewer,
-    getCurrentPage: () => app.page || 1,
+    getCurrentPageNumber: () => app.page || 1,
     getTitle: () => app.documentInfo?.Title || "Untitled",
   };
 }

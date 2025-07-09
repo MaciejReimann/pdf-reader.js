@@ -49,6 +49,6 @@ declare global {
 export interface PDFReference {
   pdfDocument: PDFDocumentProxy;
   pdfViewer: PDFViewer;
-  getCurrentPage: () => number;
+  getCurrentPageNumber: () => number;
   getTitle: () => string;
 }
